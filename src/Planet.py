@@ -4,7 +4,7 @@ import random
 
 class Planet():
 
-    def __init__(self,pos = (0,0,0), radius = 10, density = None, v=(0.,0,0), colour = None, name=None, period=1263):
+    def __init__(self,pos = (0,0,0), radius = 10, density = None, v=(0.,0,0), colour = None, name=None, period=1263, anchor_planet=None):
 
         self.name = '' if name is None else name
 
@@ -29,6 +29,9 @@ class Planet():
         self.period = 1263
         self.trail = []
 
+        self.anchor_planet = anchor_planet
+
+
     def __str__(self) -> str:
 
         return f"{self.name}, Position {self.pos}, Velocity {self.v}"
@@ -41,7 +44,12 @@ class Planet():
                 self.v += (G * planet.mass / d**3) * dist
     
     def update_position(self):
-        self.trail.append(self.pos.copy())
+        if self.anchor_planet is not None:
+            d_pos = self.anchor_planet.pos
+        else:
+            d_pos = 0
+        
+        self.trail.append(self.pos.copy() - d_pos)
         self.pos += self.v
 
     
