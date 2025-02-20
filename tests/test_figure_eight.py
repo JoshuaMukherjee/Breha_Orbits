@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '.')
+
 from src.draw import draw
 from src.Planet import Planet
 from src.Simulation import Simulation

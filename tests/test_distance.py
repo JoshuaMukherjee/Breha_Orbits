@@ -1,3 +1,6 @@
+import sys
+sys.path.insert(0, '.')
+
 from src.Planet import Planet, distance_vect,distance_scalar
 
 earth = Planet(pos=(0,0,0))
