@@ -1,6 +1,7 @@
 import numpy as np
 from numpy import array
 import random
+import json
 
 class Planet():
 
@@ -67,3 +68,29 @@ def distance_vect(planet:Planet, other:Planet) -> array:
 def distance_scalar(planet:Planet, other:Planet) -> float:
     dv = distance_vect(planet, other)
     return np.sqrt(np.sum(dv**2))
+
+
+def read_planets_from_file(path):
+    f = json.loads(open(path).read())
+    pnts = f['planets']
+    scale = f['scale']
+
+    planets = []
+
+
+    
+    for name in pnts:
+        data = pnts[name]
+        
+        pos = np.asarray(data['pos']) * scale
+        vel = np.asarray(data['vel'])
+
+        radius = data['radius'] if 'radius' in data else 10
+        density = data['density'] if 'density' in data else None
+        colour = data['colour'] if 'colour' in data else None
+        
+        planet = Planet(pos=pos,radius=radius,density=density, v=vel, colour=colour,name=name )
+
+        planets.append(planet)
+
+    return planets, scale
