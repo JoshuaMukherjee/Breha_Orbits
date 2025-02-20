@@ -70,7 +70,7 @@ def distance_scalar(planet:Planet, other:Planet) -> float:
     return np.sqrt(np.sum(dv**2))
 
 
-def read_planets_from_file(path):
+def read_planets_from_file(path) -> tuple[list[Planet], int]:
     f = json.loads(open(path).read())
     pnts = f['planets']
     scale = f['scale']
@@ -78,7 +78,6 @@ def read_planets_from_file(path):
     planets = []
 
 
-    
     for name in pnts:
         data = pnts[name]
         
